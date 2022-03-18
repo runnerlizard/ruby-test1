@@ -13,7 +13,6 @@ end
 def InnerArray(arr, tabs, prefix)
 	if arr.is_a? Array or arr.is_a? Range
 		text = prefix.dup
-		text.concat("Array#{tabs}")
 		for i in 1..tabs
 			text.prepend("	")
 		end
@@ -37,7 +36,7 @@ def InnerArray(arr, tabs, prefix)
 			text.prepend("	")
 		end
 		puts text
-		HandleItems(arr.items, tabs + 1, text)
+		InnerArray(arr.items, tabs + 1, text)
 	else
 		text = prefix.dup
 		text.concat("/")
@@ -62,5 +61,5 @@ com3.title = "Complex 3"
 com3.items = [com1, com2]
 
 ra = 1..9
-arr = Array[6, true, com1, "df", com2]
-InnerArray(arr, 0, "-/")
+arr = Array[6, true, com1, "df", com2, "dsd", com3]
+InnerArray(arr, 0, "-")
