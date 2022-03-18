@@ -1,0 +1,4 @@
+SELECT salary FROM staff
+WHERE salary < (SELECT max(salary) FROM staff)
+ORDER BY salary DESC
+LIMIT 1
