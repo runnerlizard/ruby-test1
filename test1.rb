@@ -21,7 +21,7 @@ def InnerArray(arr, tabs, prefix)
 			InnerArray(el, tabs + 1, text)
 		end
 	elsif arr.is_a? Hash
-		text = "-/Hash#{tabs}"
+		text = prefix.dup
 		for i in 1..tabs
 			text.prepend("	")
 		end
@@ -36,7 +36,13 @@ def InnerArray(arr, tabs, prefix)
 			text.prepend("	")
 		end
 		puts text
-		InnerArray(arr.items, tabs + 1, text)
+		if arr.items.is_a? ComplexItem or arr.items.is_a? Array or arr.items.is_a? Hash
+			for el in arr.items
+				InnerArray(el, tabs + 1, text)
+			end
+		else
+			InnerArray(arr.items, tabs + 1, text)
+		end
 	else
 		text = prefix.dup
 		text.concat("/")
@@ -58,8 +64,8 @@ com2.items = ['a', 'b', 'c']
 
 com3 = ComplexItem.new()
 com3.title = "Complex 3"
-com3.items = [com1, com2]
+com3.items = [com1, com2, 33]
 
 ra = 1..9
-arr = Array[6, true, com1, "df", com2, "dsd", com3]
+arr = Array[6, [100, 200], true, com1, "df", com2, "dsd", com3]
 InnerArray(arr, 0, "-")
